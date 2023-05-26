@@ -1,0 +1,35 @@
+#
+# Evaluate in-context baseline
+#
+
+environment = "HF_HOME=/tmp"
+
+tasks = pile_all
+world_size = 30
+jobdescription = eval-baseline-context-gpt2-large
+
+executable = /usr/bin/python3
+arguments = code/baseline_context.py \
+            --val_portion 0.2 \
+            --num_neighbors 20 \
+            --rank $(Process) \
+            --world_size $(world_size) \
+            --tasks $(tasks) \
+            --model gpt2-large \
+            --tokenizer gpt2-large \
+            --max_length 1024 \
+            --stride 1024 \
+            --address_path servers/addresses.txt \
+            --results_dir results/$(jobdescription)
+
+output = logs/$(jobdescription)_$(Process).out
+error  = logs/$(jobdescription)_$(Process).err
+log    = logs/$(jobdescription)_$(Process).log
+
+request_cpus = 4
+request_gpus = 1
+request_memory = 256000
+request_disk   = 60G
+requirements = TARGET.CUDAGlobalMemoryMb > 50000
+
+queue $(world_size)

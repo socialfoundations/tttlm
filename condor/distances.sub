@@ -1,0 +1,28 @@
+num_addresses = 180
+
+executable = /usr/bin/python3
+arguments  = code/eval_distances.py \
+             --num_addresses $(num_addresses)
+
+output = logs/distances-$(num_addresses).out
+error  = logs/distances-$(num_addresses).err
+log    = logs/distances-$(num_addresses).log
+
+request_cpus = 4
+request_gpus = 1
+request_memory = 128000
+request_disk   = 30G
+requirements = TARGET.CUDAGlobalMemoryMb > 20000
+
+queue num_addresses from (
+    18
+    36
+    54
+    72
+    90
+    108
+    126
+    144
+    162
+    180
+)

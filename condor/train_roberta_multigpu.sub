@@ -1,0 +1,33 @@
+# Train masked language on Pile dataset with multiple GPUs
+
+base_model    = roberta-base
+num_gpus      = 8
+batch_size    = 16
+learning_rate = 2e-5
+model_name    = $(base_model)-pile-lr$(learning_rate)-bs$(batch_size)-$(num_gpus)gpu
+
+executable = /usr/bin/python3
+arguments = -m torch.distributed.launch \
+            --nproc_per_node $(num_gpus) code/trainer_lm.py \
+            --do_train \
+            --masked_lm \
+            --model_name=$(model_name) \
+            --batch_size=$(batch_size) \
+            --learning_rate=$(learning_rate) \
+            --base_model=$(base_model) \
+            --tokenizer=$(base_model)
+
+output = logs/train-$(model_name).out
+error  = logs/train-$(model_name).err
+log    = logs/train-$(model_name).log
+
+request_cpus   = 32
+request_gpus   = $(num_gpus)
+request_memory = 512000
+request_disk   = 100G
+requirements = TARGET.CUDAGlobalMemoryMb > 50000
+
+# Special tag for reserved 8 GPU A100 machines
++Special="sf"
+
+queue

@@ -1,0 +1,57 @@
+# Launch pile servers
+#
+# This job spawns 30 pile index servers, each listening for requests
+# Each server will run `num_servers` internal splits.
+# The total number of servers should be 30 * `num_servers`.
+
+data_file = 00.jsonl
+log_dir = servers
+
+executable = /usr/bin/python3
+arguments  = code/pile_server.py \
+             --address_path $(log_dir)/addresses.txt \
+             --data_file $(data_file) \
+             --num_servers 6 \
+             --logging_level DEBUG \
+
+output = $(log_dir)/server-$(data_file).out
+error  = $(log_dir)/server-$(data_file).err
+log    = $(log_dir)/server-$(data_file).log
+
+request_cpus = 12
+request_memory = 256G
+request_disk   = 256G
+
+# Pile has 30 training files. Each process works on one.
+queue data_file from (
+    00.jsonl
+    01.jsonl
+    02.jsonl
+    03.jsonl
+    04.jsonl
+    05.jsonl
+    06.jsonl
+    07.jsonl
+    08.jsonl
+    09.jsonl
+    10.jsonl
+    11.jsonl
+    12.jsonl
+    13.jsonl
+    14.jsonl
+    15.jsonl
+    16.jsonl
+    17.jsonl
+    18.jsonl
+    19.jsonl
+    20.jsonl
+    21.jsonl
+    22.jsonl
+    23.jsonl
+    24.jsonl
+    25.jsonl
+    26.jsonl
+    27.jsonl
+    28.jsonl
+    29.jsonl
+)

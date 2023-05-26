@@ -1,0 +1,40 @@
+# Evaluate TTTLM on pile_all
+#
+# Learning rates:
+# 5e-6 - GPTNeo
+# 2e-5 - GPT2
+
+# download HuggingFace files to local machine
+environment = "HF_HOME=/tmp"
+
+# number of jobs to launch for distributed evaluation
+world_size = 8
+
+# Pile tasks, comma separated, or pile_all
+tasks = pile_all
+
+# job description determines results dir
+jobdescription = eval-gptneo-pile_all
+
+executable = /usr/bin/python3
+arguments = code/eval_tttlm.py \
+            --rank $(Process) \
+            --world_size $(world_size) \
+            --tasks $(tasks) \
+            --address_path servers/addresses.txt \
+            --results_dir results/$(jobdescription)
+
+output = logs/$(jobdescription)_$(Process).out
+error  = logs/$(jobdescription)_$(Process).err
+log    = logs/$(jobdescription)_$(Process).log
+
+request_cpus = 4
+request_gpus = 1
+request_memory = 256000
+request_disk   = 60G
+requirements = TARGET.CUDAGlobalMemoryMb > 50000
+
+# add this tag to schedule on reserved machines
++Special="sf"
+
+queue $(world_size)
