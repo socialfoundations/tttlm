@@ -1,17 +1,17 @@
-# Test-Time Training on Nearest Neighbor (TTT-NN)
+# Test-Time Training on Nearest Neighbors (TTT-NN)
 
 The repository contains code to:
 
 1. Train the embedding model
-2. Build the Pile nearest neighbor index
+2. Build nearest neighbor index on the Pile
 3. Run distributed servers on top of the index
 4. Query the servers
-5. Evaluate test-time training with nearest neighbors on the Pile
+5. Evaluate TTT-NN on the Pile
 6. Run baselines
 
 ## Necessary files
 
-To evaluate TTT-NN you ultimately need the following directory structure.
+To evaluate TTT-NN you ultimately need the following directory structure:
 
 ```
 indexes/
