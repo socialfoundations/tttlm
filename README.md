@@ -72,7 +72,7 @@ python3 code/build_database.py \
 
 Make sure you have all index files in `indexes/roberta-large` before you proceed.
 
-## Running the Pile server
+## Run the Pile server
 
 The following command will launch a server with 6 replicas each serving one split of the data. This will append 6 ip addresses and ports to the file specified as `address_path`. 
 
@@ -88,13 +88,13 @@ We recommend starting 30 servers with 6 replicas each, resulting in 180 instance
 
 Make sure servers are up and running before launching evaluation.
 
-## Using the Pile client
+## Use the Pile client
 
 Use `code/pile_client.py` to query the server. Specify `--address_path` to indicate which servers to query. The client will query all servers it finds under the address path and query each. The client then builds a local nearest neighbors structure to find the nearest neighbors among all the retrieved results.
 
 The client code can be used as a standalone client, but will also be called from the evaluation code.
 
-## Running test time training with nearest neighbors
+## Run test-time training with nearest neighbors
 
 To evaluate on GPTNeo with default parameters:
 
