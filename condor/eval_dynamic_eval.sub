@@ -25,9 +25,9 @@ arguments = code/eval_tttlm.py \
             --address_path servers/addresses.txt \
             --results_dir results/$(jobdescription)
 
-output = /home/ysun/retrap/logs/$(jobdescription)_$(Process).out
-error  = /home/ysun/retrap/logs/$(jobdescription)_$(Process).err
-log    = /home/ysun/retrap/logs/$(jobdescription)_$(Process).log
+output = logs/$(jobdescription)_$(Process).out
+error  = logs/$(jobdescription)_$(Process).err
+log    = logs/$(jobdescription)_$(Process).log
 
 request_cpus = 4
 request_gpus = 1
