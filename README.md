@@ -9,6 +9,17 @@ The repository contains code to:
 5. Evaluate TTT-NN on the Pile
 6. Run baselines
 
+This project is based on the paper [Test-Time Training on Nearest Neighbors for Large Language Models](https://arxiv.org/abs/2305.18466) by Moritz Hardt and Yu Sun, in ICLR 2024. Please cite as:
+
+```
+@inproceedings{hardt2024test,
+  title={Test-time training on nearest neighbors for large language models},
+  author={Hardt, Moritz and Sun, Yu},
+  booktitle={International Conference on Learning Representations},
+  year={2024}
+}
+```
+
 ## Necessary files
 
 To evaluate TTT-NN you ultimately need the following directory structure:
